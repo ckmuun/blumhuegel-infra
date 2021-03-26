@@ -1,0 +1,79 @@
+apiVersion: v1
+
+kind: ConfigMap
+
+metadata:
+  name: hello-script-cfg
+
+data:
+  script: echo \"hello world\"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  labels:
+    app: ubox
+
+  name: ubox
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubox
+
+  template:
+    metadata:
+      labels:
+        app: ubox
+    spec:
+      initContainers:
+        - name: setup
+          image: bitnami/kubectl
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PULSAR_SETUP
+              valueFrom:
+                configMapKeyRef:
+                  key: pulsar-setup-script
+                  name: pulsar-setup-script
+          command:
+            - echo $PULSAR_SETUP >> pulsar-setup.sh
+            - sh pulsar-setup.sh
+      containers:
+        - name: ubox
+          image: ubuntu
+          env:
+            - name: HELLO_SCRIPT
+              valueFrom:
+                configMapKeyRef:
+                  key: script
+                  name: hello-script-cfg
+---
+apiVersion: apps/v1
+
+kind: Deployment
+metadata:
+  labels:
+    app: ububox
+
+  name: ububox
+
+spec:
+  selector:
+    matchLabels:
+      app: ububox
+
+  template:
+    metadata:
+      labels:
+        app: ububox
+
+    spec:
+      containers:
+        - name: ububox
+          image: ubuntu
+

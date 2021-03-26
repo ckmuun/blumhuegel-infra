@@ -1,0 +1,33 @@
+# a kubernetes Job to prepare the created namespace for pulsar installation
+
+
+{{/*{- if .Release.IsInstall -}}*/}}
+
+
+apiVersion: batch/v1
+kind: Job
+
+metadata:
+  name: prepjob
+
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: ns-prepper
+          image: boxboat/kubectl
+          imagePullPolicy: IfNotPresent
+          command:
+            - ls
+            - echo hello helmchen
+            - echo $PULSAR_SETUP >> pulsar-setup.sh
+            - sh pulsar-setup.sh -n {{ .Release.Namespace }} -k {{ .Release.Name }} -c
+          env:
+            - name: PULSAR_SETUP
+              valueFrom:
+                configMapKeyRef:
+                  key: pulsar-setup-script
+                  name: pulsar-setup-script
+
+{{/*{{- end  }}*/}}

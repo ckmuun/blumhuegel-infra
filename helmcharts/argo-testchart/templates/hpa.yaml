@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "blumpulsar.fullname" . }}
+  name: {{ include "argo-testchart.fullname" . }}
   labels:
-    {{- include "blumpulsar.labels" . | nindent 4 }}
+    {{- include "argo-testchart.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "blumpulsar.fullname" . }}
+    name: {{ include "argo-testchart.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

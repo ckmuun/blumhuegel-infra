@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: thepod
+
+spec:
+  containers:
+    - name: thepod
+      image: nginx
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: HELLO_SCRIPT
+          valueFrom:
+            configMapKeyRef:
+              key: hello-script
+              name: hello-script-cfg
+        - name: PULSAR_SETUP_SCRIPT
+          valueFrom:
+            configMapKeyRef:
+              key: pulsar-setup-script
+              name: pulsar-setup-script

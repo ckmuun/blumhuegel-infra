@@ -1,0 +1,13 @@
+{{/*{{ if .Release.IsInstall }}*/}}
+apiVersion: v1
+
+kind: ConfigMap
+
+metadata:
+  name: pulsar-ns-config
+
+data:
+  pulsar-ns: {{ .Release.Namespace }}
+  pulsar-release-name: {{ .Release.Name}}
+
+{{/*  {{ end }}*/}}

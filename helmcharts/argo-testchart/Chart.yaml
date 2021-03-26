@@ -1,6 +1,6 @@
 apiVersion: v2
-name: blumpulsar
-description: A Helm chart for Kubernetes
+name: argo-testchart
+description: A test Helm chart for Kubernetes to be deployed with ARGOCD
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -21,8 +21,3 @@ version: 0.1.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: 1.16.0
-
-dependencies:
-  - name: pulsar
-    version: 2.7.1
-    repository: https://pulsar.apache.org/charts

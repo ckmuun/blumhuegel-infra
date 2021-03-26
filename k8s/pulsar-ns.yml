@@ -1,3 +1,5 @@
+
+# this is just a plain namespace
 apiVersion: v1
 kind: Namespace
 
