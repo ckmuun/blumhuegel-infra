@@ -59,7 +59,6 @@ kind: Deployment
 metadata:
   labels:
     app: ububox
-
   name: ububox
 
 spec:

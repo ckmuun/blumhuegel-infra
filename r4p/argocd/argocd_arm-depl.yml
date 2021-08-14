@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: argocd
+  labels:
+    app: argocd
+
+spec:
+  template:
+    metadata:
+      labels:
+        app: argocd
+    spec:
+      containers:
+        - name: argocd
+          image: alinbalutoiu/argocd:master
+          imagePullPolicy: IfNotPresent
+  selector:
+    matchLabels:
+      app: argocd
+
